@@ -17,9 +17,16 @@
         default = pkgs.mkShell {
           packages = with pkgs; [
             bun
+            ni
             gh
             ripgrep
           ];
+          shellHook = ''
+            if [ -f package.json ] && [ ! -d node_modules ]; then
+              echo "Installing dependencies..."
+              ni
+            fi
+          '';
         };
       });
     };

@@ -18,9 +18,16 @@
           packages = with pkgs; [
             nodejs
             pnpm
+            ni
             gh
             ripgrep
           ];
+          shellHook = ''
+            if [ -f package.json ] && [ ! -d node_modules ]; then
+              echo "Installing dependencies..."
+              ni
+            fi
+          '';
         };
       });
     };

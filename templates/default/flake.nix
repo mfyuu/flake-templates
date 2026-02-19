@@ -16,7 +16,14 @@
       devShells = forEachSystem (pkgs: {
         default = pkgs.mkShell {
           packages = with pkgs; [
+            ni
           ];
+          shellHook = ''
+            if [ -f package.json ] && [ ! -d node_modules ]; then
+              echo "Installing dependencies..."
+              ni
+            fi
+          '';
         };
       });
     };
